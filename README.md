@@ -28,7 +28,7 @@ The full paper is available on **Zenodo**:
 
 ## 💻 Code 
 
-The `/code` folder includes scripts used for:
+The folder includes scripts used for:
 - Dataset preparation (Iris, Breast Cancer Wisconsin, Covertype).
 - Implementation of IG-ISVM algorithm.
 - Reproduction of experimental results.
