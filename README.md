@@ -22,7 +22,7 @@ The method introduces:
 
 The full paper is available on **Zenodo**:
 
-🔗 [IG-ISVM Preprint (Zenodo)](https://doi.org/10.5281/zenodo.xxxxxxx)  
+🔗 [IG-ISVM Preprint (Zenodo)](https://doi.org/10.5281/zenodo.15352933) 
 
 ---
 
