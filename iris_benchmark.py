@@ -13,7 +13,7 @@ from plot_utils import (plot_accuracy_mi, plot_sv_count, plot_final_accuracy,
 iris = load_iris()
 X = iris.data[iris.target != 2]
 y = iris.target[iris.target != 2]
-y = 2 * y - 1  # Classi -1 e +1
+y = 2 * y - 1 
 
 C = 1.0
 
@@ -35,7 +35,6 @@ start = time.time()
 a_random, b_random, acc_random, it_random = incremental_random(X, y, C)
 random_time = time.time() - start
 
-# Definizione della funzione Q on-demand
 Q_func = Q_factory(X, y)
 
 y_pred_random = np.sign([margin_batch(i, a_random, b_random, Q_func, y) for i in range(len(y))])
