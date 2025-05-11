@@ -12,9 +12,8 @@ from core import Q_factory, margin_stream
 iris = load_iris()
 X_full = iris.data[iris.target != 2]
 y_full = iris.target[iris.target != 2]
-y_full = 2 * y_full - 1  # 0 -> -1, 1 -> +1
+y_full = 2 * y_full - 1 
 
-# Shuffle per simulare streaming
 X_stream, y_stream = shuffle(X_full, y_full, random_state=42)
 
 #########################################
