@@ -15,7 +15,6 @@ y_full = 2 * y_full - 1
 
 X_stream, y_stream = shuffle(X_full, y_full, random_state=42)
 
-# --- Introduci DRIFT ---
 drift_point = len(y_stream) // 2
 flip_fraction = 0.3
 n_flip = int(flip_fraction * (len(y_stream) - drift_point))
