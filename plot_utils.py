@@ -3,12 +3,9 @@ import seaborn as sns
 from sklearn.decomposition import PCA
 import numpy as np
 
-##############################################
-####### STILE ACCADEMICO SEABORN #############
-##############################################
 
 sns.set_theme(style="whitegrid")
-sns.set_context("talk")  # Buono per paper e presentazioni
+sns.set_context("talk")  
 custom_palette = sns.color_palette("deep")
 
 ##############################################
