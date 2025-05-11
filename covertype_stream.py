@@ -10,10 +10,9 @@ from plot_utils import plot_candidate_decisions
 
 print("Caricamento dataset Covertype...")
 X_full, y_full = fetch_covtype(return_X_y=True)
-y_full = (y_full == 2).astype(int)  # Classifica solo classe 2 vs resto
+y_full = (y_full == 2).astype(int)  
 y_full = 2 * y_full - 1  # -1 e +1
 
-# Riduci campioni per non impazzire (opzionale)
 X_stream, y_stream = shuffle(X_full[:10000], y_full[:10000], random_state=42)
 
 #########################################
