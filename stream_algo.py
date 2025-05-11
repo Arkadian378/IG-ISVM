@@ -10,13 +10,11 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
     no_progress_counter = 0
     max_no_progress = 100 
 
-    #### NUOVO: Q dinamico
     Q_func = Q_factory(X, y)
 
     a = np.zeros(n_samples)
     b = 0.0
 
-    # Margini iniziali negativi
     g = [-1 for _ in range(n_samples)]
 
     S, E, R = bookkeeping(a, g, C)
@@ -26,7 +24,6 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
     sv_progress = []
     iterazioni = []
 
-    # Primo punto (bootstrap)
     first_candidate = 0
     gc = -1
     qcc = Q_func(first_candidate, first_candidate)
@@ -38,7 +35,6 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
     S, E, R = bookkeeping(a, g, C)
     R_matrix = build_R(S, y, X, Q_func)
 
-    # STREAMING
     for i in range(1, n_samples):
 
         g = [margin_stream(X[j], a[a > 0], b, X[a > 0]) for j in range(i + 1)]
@@ -53,7 +49,6 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
         if gc > -0.05:
             continue
 
-        # Espandi R e calcola beta/gamma
         R_new = expand_R(R_matrix, S, y, X, candidate, Q_func)
         S_with_candidate = S.union({candidate})
         beta = compute_beta(R_new, S_with_candidate, y, X, candidate, Q_func)
@@ -83,7 +78,6 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
         if delta_ac == 0.0:
             continue
 
-        # Calcola il delta_a proposto
         delta_a = np.zeros_like(a)
         S_list = list(S)
         for j, s in enumerate(S_list):
@@ -128,7 +122,6 @@ def incremental_mi_streaming(X, y, C=1.0, target_accuracy=0.90, min_delta=1e-6):
         sv_progress.append(len(S))
         iterazioni.append(i)
 
-        # Aggiorna matrice R
         if S_new != S:
             S = S_new
             R_matrix = build_R(S, y, X, Q_func)
