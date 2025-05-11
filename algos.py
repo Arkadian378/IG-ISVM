@@ -73,7 +73,6 @@ def incremental_mi(X, y, C, max_iterations=100, min_delta=1e-6):
     g = [margin_batch(i, a, b, Q_func, y) for i in range(n_samples)]
     S, E, R = bookkeeping(a, g, C)
 
-    # Primo candidato
     first_candidate = 0
     gc = margin_batch(first_candidate, a, b, Q_func, y)
     qcc = Q_func(first_candidate, first_candidate)
@@ -146,7 +145,7 @@ def incremental_mi(X, y, C, max_iterations=100, min_delta=1e-6):
 def incremental_mi_batch(
     X, y, C=1.0, max_iterations=100,
     min_delta=1e-6, max_sv=300, max_candidates=1000,
-    epsilon_acc=0.005,  # Accetta peggioramento massimo di 0.5%
+    epsilon_acc=0.005,  
     apply_pca=False
 ):
     n_samples = X.shape[0]
@@ -155,11 +154,9 @@ def incremental_mi_batch(
 
     Q_func = Q_factory(X, y)
 
-    # Inizializza margini
     g = [margin_batch(i, a, b, Q_func, y) for i in range(n_samples)]
     S, E, R = bookkeeping(a, g, C)
 
-    # Bootstrap con primo punto
     first_candidate = 0
     gc = g[first_candidate]
     delta_ac = min(-gc / Q_func(first_candidate, first_candidate), C)
@@ -173,7 +170,6 @@ def incremental_mi_batch(
     accuracy_per_iteration = []
     sv_count_per_iteration = []
 
-    # Accuracy iniziale
     acc_old = accuracy_score(y, np.sign([margin_batch(i, a, b, Q_func, y) for i in range(n_samples)]))
 
     for iteration in tqdm(range(1, max_iterations + 1), desc="Incremental MI Batch"):
@@ -219,7 +215,6 @@ def incremental_mi_batch(
         a_new = a + delta_a
         b_new = b + beta[0] * delta_ac
 
-        # Accuracy nuova
         y_pred_new = np.sign([margin_batch(i, a_new, b_new, Q_func, y) for i in range(n_samples)])
         acc_new = accuracy_score(y, y_pred_new)
 
